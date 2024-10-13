@@ -1,4 +1,5 @@
 from pathlib import Path
+from decouple import config
 import environ
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -156,4 +157,34 @@ STATICFILES_FINDERS = [
 # Media files settings
 DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
 MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media files directory
+
+IS_PRODUCTION = config('IS_PRODUCTION',  default='False') == 'True'
+print("---------------------------Is production--------------------------------")
+print(IS_PRODUCTION)
+# Static files settings
+if IS_PRODUCTION:
+    STATIC_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/static/'
+    STATICFILES_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+else:
+    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
+# Local static files directory
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Global static files directory
+]
+
+# # Ensure STATIC_ROOT is defined
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collectstatic
+
+
+# Media files settings
+if IS_PRODUCTION:
+    DEFAULT_FILE_STORAGE = 'storages.backends.azure_storage.AzureStorage'
+    MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/media/'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    MEDIA_URL = '/media/'
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media files directory
