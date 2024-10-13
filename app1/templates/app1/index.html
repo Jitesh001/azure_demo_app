@@ -1,0 +1,13 @@
+<div class="container">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_div}}
+        <button type="submit">submit</button>
+    </form>
+</div>
+
+<div class="files">
+    {% for file in files %}
+    <a href="{{ file.file.url }}">show</a>
+    {% endfor %}
+</div>
