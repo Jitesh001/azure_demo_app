@@ -129,12 +129,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     # }
 # }
 
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-# Take environment variables from .env file
+# Environment Variables
+env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
+
 AZURE_CONTAINER = env("AZURE_CONTAINER")
 AZURE_ACCOUNT_NAME = env("AZURE_ACCOUNT_NAME")
 AZURE_ACCOUNT_KEY = env("AZURE_ACCOUNT_KEY")
@@ -174,8 +172,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),  # Global static files directory
 ]
 
-# # Ensure STATIC_ROOT is defined
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collectstatic
+# Ensure STATIC_ROOT is defined
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Directory for collectstatic
 
 
 # Media files settings

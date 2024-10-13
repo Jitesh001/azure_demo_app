@@ -28,5 +28,6 @@ jobs:
           AZURE_ACCOUNT_NAME: ${{ secrets.AZURE_ACCOUNT_NAME }}
           AZURE_ACCOUNT_KEY: ${{ secrets.AZURE_ACCOUNT_KEY }}
           AZURE_CONTAINER: ${{ secrets.AZURE_CONTAINER }}
+          IS_PRODUCTION: "True" # Set this to True for production
         run: |
           python manage.py collectstatic --noinput
