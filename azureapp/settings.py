@@ -160,8 +160,7 @@ MEDIA_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINE
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Local media files directory
 
 IS_PRODUCTION = config('IS_PRODUCTION',  default='False') == 'True'
-print("---------------------------Is production--------------------------------")
-print(IS_PRODUCTION)
+
 # Static files settings
 if IS_PRODUCTION:
     STATIC_URL = f'https://{AZURE_ACCOUNT_NAME}.blob.core.windows.net/{AZURE_CONTAINER}/static/'
